@@ -163,7 +163,8 @@ namespace ConsoleApp1
                 {
                     case 1:
                         {
-                            
+                            a.XuatDS();
+                            a.VeMenu();
                             break;
                         }
                     case 2:
