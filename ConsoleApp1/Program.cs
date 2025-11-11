@@ -126,7 +126,192 @@ namespace ConsoleApp1
 
     //Phần của Vy
 
-    //Phần của Trọng
+    //Phần của Trọng STRUCT TIMKIEM 
+    public struct TIMKIEM
+    {
+        //Hàm tìm kiếm theo loại 
+        public void TimKiemTheoLoai(ref ListLK ds)
+        {
+            Console.WriteLine("\n=== CHON LOAI LINH KIEN ===");
+            Console.WriteLine("===========================");
+            Console.WriteLine("1. Linh kien thu dong");
+            Console.WriteLine("2. Linh kien Ban Dan");
+            Console.WriteLine("3. Vi mach Tich hop");
+            Console.WriteLine("4. Linh kien Ket noi & Co khi");
+            Console.WriteLine("5. Cam bien");
+            Console.WriteLine("6. Hien thi");
+            Console.WriteLine("7. Dao dong & Thach anh");
+            Console.WriteLine("8. Mach in & Phu kien");
+            Console.Write("Nhap lua chon (1–8): ");
+
+            string chon = Console.ReadLine();
+
+            Console.Clear();
+
+            string loai = "";
+
+            switch (chon)
+            {
+                case "1":
+                    loai = "Linh kien thu dong";
+                    break;
+                case "2":
+                    loai = "Linh kien Ban Dan";
+                    break;
+                case "3":
+                    loai = "Vi mach Tich hop";
+                    break;
+                case "4":
+                    loai = "Linh kien Ket noi & Co khi";
+                    break;
+                case "5":
+                    loai = "Cam bien";
+                    break;
+                case "6":
+                    loai = "Hien thi";
+                    break;
+                case "7":
+                    loai = "Dao dong & Thach anh";
+                    break;
+                case "8":
+                    loai = "Mach in & Phu kien";
+                    break;
+                default:
+                    Console.WriteLine("Lua chon khong hop le!");
+                    return;
+            }
+
+            Console.WriteLine($"\nDanh sach loai {loai}: ");
+            Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+            Console.WriteLine("============================================================================================================================================");
+            foreach (var a in ds.list)
+            {
+                if (a.Value.LoaiLK == loai)
+                {
+                    a.Value.HienThi();
+                }
+            }
+        }
+
+        //Hàm tìm kiếm theo giá nhập 
+        public void TimKiemGiaNhap(ref ListLK ds)
+        {
+            decimal minGiaNhap = ds.list.Min(B => B.Value.GiaNhap);
+            decimal maxGiaNhap = ds.list.Max(B => B.Value.GiaNhap);
+
+            Console.Write($"Nhap gia nhap toi da can tim trong kho ({minGiaNhap.ToString("N0").Replace(',', '.')} - {maxGiaNhap.ToString("N0").Replace(',', '.')}): ");
+            int MaxGiaNhap;
+            while (true)
+            {
+                if (!int.TryParse(Console.ReadLine(), out MaxGiaNhap) || MaxGiaNhap < minGiaNhap)
+                {
+                    Console.Write("\nGia nhap khong hop le! Nhap lai: ");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.WriteLine($"\nDanh sach linh kien co gia nhap tu {minGiaNhap} den {MaxGiaNhap} la: ");
+            bool TimThayGN = false;
+
+            Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+            Console.WriteLine("============================================================================================================================================");
+            foreach (var a in ds.list)
+            {
+                if (a.Value.GiaNhap >= 0 && a.Value.GiaNhap <= MaxGiaNhap)
+                {
+                    a.Value.HienThi();
+                    TimThayGN = true;
+                }
+            }
+
+            if (!TimThayGN)
+            {
+                Console.WriteLine("\nKhong tim thay linh kien trong khoan nay!");
+            }
+        }
+
+        //Hàm tìm kiếm theo lượng tồn kho 
+        public void TimKiemTonKho(ref ListLK ds)
+        {
+            int minTonKho = ds.list.Min(B => B.Value.TonKho);
+            int maxTonKho = ds.list.Max(B => B.Value.TonKho);
+
+            Console.Write($"Nhap so luong ton kho toi da can tim ({minTonKho} - {maxTonKho}): ");
+            int MaxGiaTonKho;
+            while (true)
+            {
+                if (!int.TryParse(Console.ReadLine(), out MaxGiaTonKho) || MaxGiaTonKho < minTonKho)
+                {
+                    Console.Write("\nSo luong ton kho khong hợp le! Nhap lai: ");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.WriteLine($"\nDanh sach linh kien co ton kho tu {minTonKho} den {MaxGiaTonKho}");
+            bool TimThayTK = false;
+
+            Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+            Console.WriteLine("============================================================================================================================================");
+            foreach (var a in ds.list)
+            {
+                if (a.Value.TonKho >= 1 && a.Value.TonKho <= MaxGiaTonKho)
+                {
+                    a.Value.HienThi();
+                    TimThayTK = true;
+                }
+            }
+
+            if (!TimThayTK)
+            {
+                Console.WriteLine("\nKhong tim thay linh kien tồn kho trong khoang nay!");
+            }
+        }
+
+        //Hàm menu tìm kiếm 
+        public void MenuTimKiem(ref ListLK ds)
+        {
+            Console.WriteLine("\n=== MENU TiM KIEM LINH KIEN ===");
+            Console.WriteLine("===============================");
+            Console.WriteLine("1. Tim theo loai linh kien");
+            Console.WriteLine("2. Tim theo gia nhap");
+            Console.WriteLine("3. Tim theo ton kho");
+            Console.Write("Nhap lua chọn (1-3): ");
+            string chon = Console.ReadLine();
+
+            Console.Clear();
+
+            switch (chon)
+            {
+                case "1":
+                    {
+                        TimKiemTheoLoai(ref ds);
+                        break;
+                    }
+                case "2":
+                    {
+                        TimKiemGiaNhap(ref ds);
+                        break;
+                    }
+                case "3":
+                    {
+                        TimKiemTonKho(ref ds);
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("Lua chọn khong hợp le!");
+                        break;
+                    }
+            }
+        }
+    }
+}
     internal class Program
     {
         static void Main(string[] args)
