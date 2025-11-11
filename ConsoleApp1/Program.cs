@@ -125,7 +125,168 @@ namespace ConsoleApp1
     //Phần của Nam
 
     //Phần của Vy
+public struct SAPXEPLK
+{
+    //Hàm sắp xếp theo loại linh kiện 
+    public void SapXepTheoLoai(ref ListLK ds)
+    {
+        var sxtl = ds.list.Values.OrderBy(B => B.LoaiLK).ToList();
+        Console.WriteLine("Danh sach sap xep theo loai linh kien: ");
 
+        Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+        Console.WriteLine("============================================================================================================================================");
+
+        int stt = 1;
+        foreach (var a in sxtl)
+        {
+            Console.Write($"{stt++,2}. ");
+            a.HienThi();
+        }
+    }
+
+    //Hàm sắp xếp theo giá nhập 
+    public void SapXepTheoGiaNhap(bool tanggiamGN, ref ListLK ds)
+    {
+        var sxgn = tanggiamGN
+            ? ds.list.Values.OrderBy(B => B.GiaNhap).ToList()
+            : ds.list.Values.OrderByDescending(B => B.GiaNhap).ToList();
+
+        Console.WriteLine($"Danh sach sap xep theo gia nhap ({(tanggiamGN ? "tang dan" : "giam dan")}): ");
+
+        Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+        Console.WriteLine("============================================================================================================================================");
+
+        int stt = 1;
+        foreach (var a in sxgn)
+        {
+            Console.Write($"{stt++,2}. ");
+            a.HienThi();
+        }
+    }
+
+    //Menu sắp xếp theo giá nhập 
+    public void MenuSapXepGiaNhap(ref ListLK ds)
+    {
+        Console.WriteLine("=== MENU SAP XEP THEO GIA NHAP ===");
+        Console.WriteLine("==================================");
+        Console.WriteLine("1. Sap xep tang dan");
+        Console.WriteLine("2. Sap xep giam dan");
+        Console.Write("Lua chon 1 hoac 2: ");
+
+        string chon = Console.ReadLine();
+
+        Console.Clear();
+
+        switch (chon)
+        {
+            case "1":
+                {
+                    SapXepTheoGiaNhap(true, ref ds);
+                    break;
+                }
+            case "2":
+                {
+                    SapXepTheoGiaNhap(false, ref ds);
+                    break;
+                }
+            default:
+                {
+                    Console.WriteLine("\nLua chon khong hop le!");
+                    break;
+                }
+        }
+    }
+    Console.WriteLine("\nMA LINH KIEN    | TEN LINH KIEN                                      | LOAI LINH KIEN               | GIA NHAP LINH KIEN     | LUONG TON KHO");
+        Console.WriteLine("============================================================================================================================================");
+
+        int stt = 1;
+        foreach (var a in sxtk)
+        {
+            Console.Write($"{stt++,2}. ");
+            a.HienThi();
+        }
+    }
+
+    //Menu sắp xếp theo tồn kho 
+    public void MenuSapXepTonKho(ref ListLK ds)
+    {
+        Console.WriteLine("=== MENU SAP XEP THEO TON KHO ===");
+        Console.WriteLine("=================================");
+        Console.WriteLine("1. Sap xep tang dan");
+        Console.WriteLine("2. Sap xep giam dan");
+        Console.Write("Lua chon 1 hoac 2: ");
+        string chon = Console.ReadLine();
+
+        Console.Clear();
+
+        switch (chon)
+        {
+            case "1":
+                {
+                    SapXepTonKho(true, ref ds);
+                    break;
+                }
+            case "2":
+                {
+                    SapXepTonKho(false, ref ds);
+                    break;
+                }
+            default:
+                {
+                    Console.WriteLine("\nLua chon khong hop le!");
+                    break;
+                }
+        }
+    }
+
+    //Menu tất cả sắp xếp 
+    public void SapXep(ref ListLK ds)
+    {
+        Console.WriteLine("=== MENU SAP XEP ===");
+        Console.WriteLine("====================");
+        Console.WriteLine("1. Sap xep theo loai");
+        Console.WriteLine("2. Sap xep theo gia nhap");
+        Console.WriteLine("3. Sap xep theo so ton kho");
+        Console.Write("Lua chon cach sap xep (1-3): ");
+        string chon = Console.ReadLine();
+
+        Console.Clear();
+
+        switch (chon)
+        {
+            case "1":
+                {
+                    SapXepTheoLoai(ref ds);
+                    break;
+                }
+            case "2":
+                {
+                    MenuSapXepGiaNhap(ref ds);
+                    break;
+                }
+            case "3":
+                {
+                    MenuSapXepTonKho(ref ds);
+                    break;
+                }
+            default:
+                {
+                    
+                    Console.WriteLine("\nLua chon khong hop le!");
+                    break;
+                }
+        }
+    }
+}
+
+    //Hàm sắp xếp theo tồn kho 
+    public void SapXepTonKho(bool tanggiamTK, ref ListLK ds)
+    {
+        var sxtk = tanggiamTK
+            ? ds.list.Values.OrderBy(B => B.TonKho).ToList()
+            : ds.list.Values.OrderByDescending(B => B.TonKho).ToList();
+
+        Console.WriteLine($"Danh sach sap xep theo so ton kho ({(tanggiamTK ? "tang dan" : "giam dan")}): ");
     //Phần của Trọng STRUCT TIMKIEM 
     public struct TIMKIEM
     {
