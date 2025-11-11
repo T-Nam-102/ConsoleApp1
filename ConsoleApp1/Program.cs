@@ -121,6 +121,12 @@ namespace ConsoleApp1
 
         
     }
+
+    //Phần của Nam
+
+    //Phần của Vy
+
+    //Phần của Trọng
     internal class Program
     {
         static void Main(string[] args)
